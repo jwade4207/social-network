@@ -14,9 +14,9 @@ const UserSchema = new Schema(
             required: true,
             match: [/.+@.+\..+/],
         },
-        quotes: [{
+        thoughts: [{
             type: Schema.Types.ObjectId,
-            ref: "Quote",
+            ref: "Thought",
         }],
         friends: [{
             type: Schema.Types.ObjectId,
@@ -30,10 +30,7 @@ const UserSchema = new Schema(
     });
 
 UserSchema.virtual("friendCount").get(function () {
-    return this.friends.reduce(
-        (total, friends) => total + friends.replies.length + 1,
-        0
-    );
+    return this.friends.length
 });
 
 const User = model('User', UserSchema);
